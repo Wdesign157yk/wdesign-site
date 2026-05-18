@@ -1,0 +1,11 @@
+[build]
+  command = "jekyll build"
+  publish = "_site"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+
+[context.production.environment]
+  JEKYLL_ENV = "production"

@@ -1,0 +1,41 @@
+---
+
+layout: default
+title: 聯絡我們
+---
+
+<div class="page-hero-header">
+  <div class="page-hero-bg" style="background-image:url('{{ '/images/works/IMG_2950.jpg' | relative_url }}')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <h1>CONTACT</h1>
+    <img src="{{ '/images/icons/icon7.png' | relative_url }}" alt="" class="icon-deco-hero">
+  </div>
+</div>
+
+<section class="contact-page"><div class="container"><div class="contact-grid">
+<div>
+  <h2 style="font-family:var(--font-serif);font-size:22px;font-weight:400;margin-bottom:24px;">聯絡我們 — 台中公司</h2>
+  <div class="contact-map"><iframe src="{{ site.company.map_embed }}" allowfullscreen loading="lazy"></iframe></div>
+  <div class="contact-info">
+    <div class="contact-info-item"><p>📍 <a href="{{ site.company.map_url }}" target="_blank">{{ site.company.address }}</a></p></div>
+    <div class="contact-info-item"><p>📞 <a href="tel:{{ site.company.phone }}">{{ site.company.phone }}</a></p></div>
+    <div class="contact-info-item"><p>✉️ <a href="mailto:{{ site.company.email }}">{{ site.company.email }}</a></p></div>
+    <div class="contact-info-item"><p>💬 LINE：<a href="{{ site.company.line_url }}" target="_blank">{{ site.company.line_id }}</a></p></div>
+  </div>
+</div>
+<div class="contact-form">
+  <h2>線上留言</h2>
+  <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="contact">
+    <p style="display:none"><input name="bot-field"></p>
+    <div class="form-group"><label>姓名 <span class="req">*</span></label><input type="text" name="name" required placeholder="請輸入您的姓名"></div>
+    <div class="form-group"><label>信箱 <span class="req">*</span></label><input type="email" name="email" required placeholder="請輸入您的 Email"></div>
+    <div class="form-group"><label>主旨</label><input type="text" name="subject" placeholder="請輸入主旨"></div>
+    <div class="form-group"><label>內容 <span class="req">*</span></label><textarea name="message" required placeholder="請輸入您的留言內容..."></textarea></div>
+    <p class="form-note">提醒您，請勿留下個人個資相關內容。<span class="req">*</span> 為必填</p>
+    <button type="submit" class="btn-submit">送　出</button>
+    <div id="formSuccess" class="form-success">✓ 感謝您的留言！我們將盡快與您聯繫。</div>
+  </form>
+</div>
+</div></div></section>

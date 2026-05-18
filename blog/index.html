@@ -1,0 +1,245 @@
+---
+layout: default
+title: 設計講堂
+---
+
+<style>
+/* Blog 頁面 header - 全寬背景圖 */
+.blog-page-header {
+  margin-top: var(--header-h);
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.blog-page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url('{{ '/images/works/pu_(15).jpg' | relative_url }}');
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(100%);
+}
+.blog-page-header::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+.blog-page-header-content {
+  position: relative; z-index: 2;
+  text-align: center;
+}
+.blog-page-header-content h1 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: 0.15em;
+}
+.blog-page-header-content .icon-deco {
+  width: 32px; margin: 14px auto 0;
+  filter: invert(1); opacity: 0.6; display: block;
+}
+
+/* Blog 列表 */
+.blog-page-section { padding: 60px 0; background: var(--bg); }
+.blog-page-wrap { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: flex-start; }
+.blog-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.filter-btn {
+  background: none; border: 1px solid var(--light-gray);
+  border-radius: 2px; padding: 7px 16px;
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 13px; color: var(--mid); cursor: pointer; transition: all 0.2s;
+  letter-spacing: 0.05em;
+}
+.filter-btn.active, .filter-btn:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+/* 文章卡片 - 襯線字體 */
+.blog-full-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+.blog-card { background: var(--white); border-radius: 2px; overflow: hidden; transition: box-shadow 0.3s; display: flex; flex-direction: column; }
+.blog-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+.blog-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+.blog-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.blog-card-body .date { font-size: 11px; color: var(--mid); margin-bottom: 6px; font-family: var(--font-sans); }
+.blog-card-body .blog-tag { display:inline-block; font-size:9px; background:var(--gold); color:#fff; padding:2px 6px; border-radius:2px; margin-bottom:8px; }
+.blog-card-body h3 {
+  font-family: var(--font-serif);
+  font-size: 17px; font-weight: 400;
+  color: var(--dark); margin-bottom: 10px;
+  line-height: 1.5; letter-spacing: 0.03em;
+  transition: color 0.2s;
+}
+.blog-card:hover h3 { color: var(--gold); }
+.blog-card-body p { font-size: 12px; color: var(--mid); line-height: 1.8; font-family: var(--font-sans); }
+.blog-card.hidden { display: none; }
+
+/* 分頁 */
+.blog-pagination { display: flex; justify-content: center; gap: 8px; margin-top: 40px; flex-wrap: wrap; }
+.page-btn { width: 36px; height: 36px; border: 1px solid var(--light-gray); background: none; border-radius: 2px; cursor: pointer; font-size: 13px; color: var(--mid); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.page-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); }
+.page-btn:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+
+@media (max-width: 900px) {
+  .blog-page-wrap { grid-template-columns: 1fr; }
+  .blog-sidebar { order: 2; }
+  .blog-full-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .blog-page-header { height: 200px; }
+}
+</style>
+
+<!-- 全寬背景圖標題 -->
+<div class="blog-page-header">
+  <div class="blog-page-header-content">
+    <h1>BLOG</h1>
+  </div>
+  <img src="{{ '/images/icons/icon7.png' | relative_url }}" alt="" class="icon-deco-hero">
+</div>
+
+<section class="blog-page-section">
+  <div class="container">
+    <div class="blog-page-wrap">
+
+      <!-- 左側：文章列表 -->
+      <div class="blog-main">
+        <div class="section-label" style="margin-bottom:24px;">
+          <span class="en" style="font-size:clamp(20px,3vw,28px);">設計講堂</span>
+        </div>
+
+        <div class="blog-filter">
+          <button class="filter-btn active" data-cat="all">全部</button>
+          <button class="filter-btn" data-cat="housing">住宅空間</button>
+          <button class="filter-btn" data-cat="office">辦公空間</button>
+          <button class="filter-btn" data-cat="business">公共或商業空間</button>
+          <button class="filter-btn" data-cat="exterior">外牆拉皮</button>
+          <button class="filter-btn" data-cat="law">室內裝修相關法規</button>
+        </div>
+
+        <div class="blog-full-list" id="blogList">
+          {% assign all_blogs = site.blog | sort: 'date' | reverse %}
+          {% for post in all_blogs %}
+          <a href="{{ post.url | relative_url }}" class="blog-card" data-cat="{{ post.category }}">
+            <img src="{{ post.cover }}" alt="{{ post.title }}">
+            <div class="blog-card-body">
+              <span class="date">{{ post.date | date: "%Y/%m/%d" }}</span>
+              {% if post.is_new %}<span class="blog-tag">NEW</span>{% endif %}
+              <h3>{{ post.title }}</h3>
+              <p>{{ post.excerpt }}</p>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+
+        <div class="blog-pagination" id="blogPagination"></div>
+      </div>
+
+      <!-- 右側：側欄 -->
+      <aside class="blog-sidebar">
+        <div class="sidebar-block">
+          <h4 class="sidebar-title">文章分類</h4>
+          <ul class="sidebar-cat-list">
+            {% assign hc = site.blog | where: "category", "housing" | size %}
+            {% assign oc = site.blog | where: "category", "office" | size %}
+            {% assign bc = site.blog | where: "category", "business" | size %}
+            {% assign ec = site.blog | where: "category", "exterior" | size %}
+            {% assign lc = site.blog | where: "category", "law" | size %}
+            <li><a href="#" data-filter="housing">住宅空間 ({{ hc }})</a></li>
+            <li><a href="#" data-filter="office">辦公空間 ({{ oc }})</a></li>
+            <li><a href="#" data-filter="business">公共或商業空間 ({{ bc }})</a></li>
+            <li><a href="#" data-filter="exterior">外牆拉皮 ({{ ec }})</a></li>
+            <li><a href="#" data-filter="law">室內裝修相關法規 ({{ lc }})</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block">
+          <h4 class="sidebar-title">熱門文章</h4>
+          <ul class="sidebar-popular">
+            {% assign popular_ids = "2021-11-23-home,2022-03-07-gods-gift,2016-09-23-house-inspection,2017-08-14-breathing-luxury,2022-05-02-watch-man" | split: "," %}
+            {% for pid in popular_ids %}
+              {% for post in site.blog %}
+                {% if post.path contains pid %}
+                <li>
+                  <a href="{{ post.url | relative_url }}">
+                    <img src="{{ post.cover }}" alt="{{ post.title }}">
+                    <div>
+                      <span class="pop-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+                      <span class="pop-title">{{ post.title }}</span>
+                    </div>
+                  </a>
+                </li>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var cards = document.querySelectorAll('.blog-card');
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var sidebarLinks = document.querySelectorAll('.sidebar-cat-list a');
+  var pagination = document.getElementById('blogPagination');
+  var perPage = 10;
+  var currentCat = 'all';
+  var currentPage = 1;
+
+  function getFiltered() {
+    return Array.from(cards).filter(function(c) {
+      return currentCat === 'all' || c.dataset.cat === currentCat;
+    });
+  }
+
+  function render() {
+    var filtered = getFiltered();
+    var totalPages = Math.ceil(filtered.length / perPage);
+    var start = (currentPage - 1) * perPage;
+    cards.forEach(function(c) { c.classList.add('hidden'); });
+    filtered.slice(start, start + perPage).forEach(function(c) { c.classList.remove('hidden'); });
+    pagination.innerHTML = '';
+    if (totalPages <= 1) return;
+    if (currentPage > 1) {
+      var p = document.createElement('button'); p.className='page-btn'; p.textContent='←';
+      p.onclick=function(){ currentPage--; render(); window.scrollTo({top:400,behavior:'smooth'}); };
+      pagination.appendChild(p);
+    }
+    for (var i = 1; i <= totalPages; i++) {
+      (function(n) {
+        var b = document.createElement('button');
+        b.className='page-btn'+(n===currentPage?' active':'');
+        b.textContent=n;
+        b.onclick=function(){ currentPage=n; render(); window.scrollTo({top:400,behavior:'smooth'}); };
+        pagination.appendChild(b);
+      })(i);
+    }
+    if (currentPage < totalPages) {
+      var nx = document.createElement('button'); nx.className='page-btn'; nx.textContent='→';
+      nx.onclick=function(){ currentPage++; render(); window.scrollTo({top:400,behavior:'smooth'}); };
+      pagination.appendChild(nx);
+    }
+  }
+
+  function setFilter(cat) {
+    currentCat = cat; currentPage = 1;
+    filterBtns.forEach(function(b) { b.classList.toggle('active', (cat==='all'&&b.dataset.cat==='all')||b.dataset.cat===cat); });
+    sidebarLinks.forEach(function(l) { l.parentElement.classList.toggle('active', l.dataset.filter===cat); });
+    render();
+  }
+
+  filterBtns.forEach(function(btn) { btn.addEventListener('click', function() { setFilter(this.dataset.cat); }); });
+  sidebarLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault(); setFilter(this.dataset.filter);
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  render();
+});
+</script>

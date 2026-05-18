@@ -1,0 +1,98 @@
+---
+layout: default
+---
+
+<!-- ===== HERO SLIDESHOW ===== -->
+<section class="hero" id="home">
+  <div class="slides-wrap">
+    <div class="slide active" style="background-image:url('{{ '/images/works/pu_(15).jpg' | relative_url }}')"></div>
+    <div class="slide" style="background-image:url('{{ '/images/works/IMG_2950.jpg' | relative_url }}')"></div>
+    <div class="slide" style="background-image:url('{{ '/images/works/DSCF7005-1920.jpg' | relative_url }}')"></div>
+    <div class="slide" style="background-image:url('{{ '/images/works/SLF_005_web.jpg' | relative_url }}')"></div>
+  </div>
+  <div class="hero-dots">
+    <span class="dot active" data-idx="0"></span>
+    <span class="dot" data-idx="1"></span>
+    <span class="dot" data-idx="2"></span>
+    <span class="dot" data-idx="3"></span>
+  </div>
+</section>
+
+<!-- ===== INTRO TEXT ===== -->
+<section class="intro-text">
+  <div class="container">
+    <p><strong>W</strong>設計團隊，對建築充滿無比熱情的一群人，自 1998年投入室內設計及裝修領域以來，累積豐富的專業知識及設計能量，不論您有任何空間設計的需求或疑問，歡迎與我們洽詢。我們會以熱情、創意及專業，為您打造專屬的建築物室內空間！</p>
+  </div>
+</section>
+
+<!-- ===== ABOUT SECTION ===== -->
+<section class="section-about">
+  <div class="container">
+    <div class="section-label">
+      <span class="en">ABOUT</span>
+      <span class="zh">關於我們</span>
+      <a href="{{ '/about/' | relative_url }}" class="view-more">VIEW MORE</a>
+    </div>
+    <div class="about-content">
+      <div class="about-text">
+        <h2>設計主張</h2>
+        <p>W設計 大宏廷團隊主張，空間的設計應該涵蓋三個主要的核心概念：<strong>空間與環境、空間與人、空間與時間</strong>。</p>
+        <div class="awards-row">
+          <div class="award-item"><img src="{{ '/images/awards/if-awards.png' | relative_url }}" alt="德國iF設計獎"><span>德國iF設計獎</span></div>
+          <div class="award-item"><img src="{{ '/images/awards/ida-awards.png' | relative_url }}" alt="美國IDA國際設計獎"><span>美國IDA</span></div>
+          <div class="award-item"><img src="{{ '/images/awards/adesigh-awards.png' | relative_url }}" alt="義大利A Design"><span>義大利A Design</span></div>
+          <div class="award-item"><img src="{{ '/images/awards/muse-awards.png' | relative_url }}" alt="美國Muse設計獎"><span>美國Muse</span></div>
+          <div class="award-item"><img src="{{ '/images/awards/apdc-awards.png' | relative_url }}" alt="台灣設計大獎"><span>台灣設計大獎</span></div>
+        </div>
+      </div>
+      <div class="about-img">
+        <img src="{{ '/images/about/about.png' | relative_url }}" alt="關於W設計">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WORKS SECTION - 從後台資料自動產生 ===== -->
+<section class="section-works">
+  <div class="container">
+    <div class="section-label">
+      <span class="en">WORKS</span>
+      <span class="zh">作品欣賞</span>
+      <a href="{{ '/works/' | relative_url }}" class="view-more">view more</a>
+    </div>
+    <div class="works-grid">
+      {% assign featured_works = site.works | sort: 'date' | reverse %}
+      {% for work in featured_works limit:6 %}
+      <a href="{{ work.url | relative_url }}" class="work-item">
+        <img src="{{ work.cover }}" alt="{{ work.title }}">
+        <div class="work-overlay"><span>{{ work.title }}</span></div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG SECTION - 從後台資料自動產生 ===== -->
+<section class="section-blog">
+  <div class="container">
+    <div class="section-label">
+      <span class="en">BLOG</span>
+      <span class="zh">設計講堂</span>
+      <a href="{{ '/blog/' | relative_url }}" class="view-more">view more</a>
+    </div>
+    <div class="blog-list">
+      {% assign recent_blogs = site.blog | sort: 'date' | reverse %}
+      {% for post in recent_blogs limit:4 %}
+      <a href="{{ post.url | relative_url }}" class="blog-item">
+        <img src="{{ post.cover }}" alt="{{ post.title }}">
+        <div class="blog-info">
+          {% if post.is_new %}<span class="blog-tag">NEW</span>{% endif %}
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.excerpt }}</p>
+          <span class="blog-date">{{ post.date | date: "%Y/%m/%d" }}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>

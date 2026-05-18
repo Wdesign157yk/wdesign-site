@@ -1,0 +1,44 @@
+title: "大宏廷 W設計"
+description: "W設計大宏廷，台中西區七期室內設計推薦，服務項目包含住宅空間、舊屋翻新、商辦空間、外牆拉皮等。"
+url: "https://wdesign157yk.github.io"
+baseurl: "/wdesign-site"
+
+# 公司資料
+company:
+  name: "大宏廷 W設計"
+  phone: "04-23208058"
+  address: "台中市西區博館路117號7樓之1"
+  email: "wdmail2019@gmail.com"
+  facebook: "https://www.facebook.com/wdesign2005"
+  instagram: "https://www.instagram.com/w_design_2005/"
+  line_id: "@809ybvht"
+  line_url: "https://line.me/R/ti/p/@809ybvht"
+  map_url: "https://goo.gl/maps/fCGYyConA8Qzf9mBA"
+  map_embed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3640.434826578759!2d120.66328981556285!3d24.156478584390932!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ac8f590e4b29%3A0x7a70d24482662762!2z5a-s5piv5Y2z5aKD5Y-w5Lit5a6k5YWn6Kit6KiI5YWs5Y-4!5e0!3m2!1szh-TW!2stw!4v1474532122417"
+
+# Jekyll設定
+collections:
+  works:
+    output: true
+    permalink: /works/:name/
+  blog:
+    output: true
+    permalink: /blog/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "works"
+    values:
+      layout: "work-single"
+  - scope:
+      path: ""
+      type: "blog"
+    values:
+      layout: "blog-single"
+
+plugins:
+  - jekyll-feed
+
+markdown: kramdown
+permalink: pretty

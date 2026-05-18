@@ -1,0 +1,28 @@
+---
+
+layout: default
+title: 作品欣賞
+---
+
+<div class="page-hero-header">
+  <div class="page-hero-bg" style="background-image:url('{{ '/images/works/SLF_005_web.jpg' | relative_url }}')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <h1>WORKS</h1>
+    <img src="{{ '/images/icons/icon7.png' | relative_url }}" alt="" class="icon-deco-hero">
+  </div>
+</div>
+
+<section class="works-page">
+  <div class="container">
+    <div class="works-full-grid">
+      {% assign all_works = site.works | sort: 'date' | reverse %}
+      {% for work in all_works %}
+      <a href="{{ work.url | relative_url }}" class="work-card">
+        <img src="{{ work.cover }}" alt="{{ work.title }}">
+        <div class="work-card-info"><h3>{{ work.title }}</h3></div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
