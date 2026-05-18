@@ -1,0 +1,55 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+locale: 'zh_Hant'
+
+collections:
+  - name: "works"
+    label: "作品欣賞"
+    label_singular: "作品"
+    folder: "_works"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "作品名稱", name: "title", widget: "string"}
+      - {label: "封面圖片", name: "cover", widget: "image", hint: "建議尺寸：960x720px"}
+      - label: "空間類型"
+        name: "category"
+        widget: "select"
+        options:
+          - {label: "住宅空間", value: "housing"}
+          - {label: "商業空間", value: "business"}
+          - {label: "辦公空間", value: "office"}
+          - {label: "外牆拉皮", value: "exterior"}
+      - {label: "作品簡介", name: "description", widget: "text", required: false}
+      - label: "更多圖片"
+        name: "gallery"
+        widget: "list"
+        required: false
+        field: {label: "圖片", name: "image", widget: "image"}
+      - {label: "完工日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY/MM/DD", time_format: false}
+      - {label: "顯示在首頁", name: "featured", widget: "boolean", default: true}
+
+  - name: "blog"
+    label: "設計講堂"
+    label_singular: "文章"
+    folder: "_blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "文章標題", name: "title", widget: "string"}
+      - {label: "封面圖片", name: "cover", widget: "image"}
+      - label: "文章分類"
+        name: "category"
+        widget: "select"
+        options:
+          - {label: "住宅設計", value: "housing"}
+          - {label: "商業空間", value: "business"}
+          - {label: "設計知識", value: "knowledge"}
+      - {label: "文章摘要", name: "excerpt", widget: "text"}
+      - {label: "文章內容", name: "body", widget: "markdown"}
+      - {label: "發布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY/MM/DD", time_format: false}
+      - {label: "標記為最新", name: "is_new", widget: "boolean", default: true}

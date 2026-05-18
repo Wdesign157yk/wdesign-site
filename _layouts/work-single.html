@@ -1,0 +1,46 @@
+---
+layout: default
+---
+{% include page-header.html en="works" bg="/images/works/SLF_005_web.jpg" %}
+
+<section class="work-single-page">
+  <div class="container">
+    <div class="work-single-header">
+      <h2>{{ page.title }}</h2>
+      {% if page.category %}
+      <span class="work-cat-tag">
+        {% case page.category %}
+          {% when 'housing' %}住宅空間
+          {% when 'business' %}商業空間
+          {% when 'office' %}辦公空間
+          {% when 'exterior' %}外牆拉皮
+        {% endcase %}
+      </span>
+      {% endif %}
+    </div>
+
+    {% if page.cover %}
+    <div class="work-single-cover">
+      <img src="{{ page.cover }}" alt="{{ page.title }}">
+    </div>
+    {% endif %}
+
+    {% if page.description %}
+    <div class="work-single-desc">
+      <p>{{ page.description }}</p>
+    </div>
+    {% endif %}
+
+    {% if page.gallery %}
+    <div class="work-single-gallery">
+      {% for img in page.gallery %}
+      <img src="{{ img.image }}" alt="{{ page.title }}">
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="work-single-nav">
+      <a href="{{ '/works/' | relative_url }}" class="btn-back">← 返回作品列表</a>
+    </div>
+  </div>
+</section>

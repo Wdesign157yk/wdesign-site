@@ -1,0 +1,13 @@
+{% assign bg_url = include.bg | default: '/images/works/pu_(15).jpg' %}
+<div class="page-hero-wrap">
+  <div class="page-hero-header">
+    <div class="page-hero-bg" style="background-image:url('{{ bg_url | relative_url }}')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>{{ include.en | default: page.title }}</h1>
+    </div>
+  </div>
+  <div class="page-hero-icon-wrap">
+    <img src="{{ '/images/icons/icon7.png' | relative_url }}" alt="" class="icon-deco-hero">
+  </div>
+</div>

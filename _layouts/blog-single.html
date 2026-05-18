@@ -1,0 +1,88 @@
+---
+layout: default
+---
+{% include page-header.html en="blog" bg="/images/works/pu_(15).jpg" %}
+
+<section class="blog-single-page">
+  <div class="container">
+    <div class="blog-single-wrap">
+
+      <!-- 左側：文章內容 -->
+      <article class="blog-article">
+        <h1 class="blog-single-title">{{ page.title }}</h1>
+        <div class="blog-single-meta">
+          <span class="blog-date">{{ page.date | date: "%Y-%m-%d" }}</span>
+          {% if page.is_new %}<span class="blog-tag">NEW</span>{% endif %}
+          <span class="cat-tag cat-{{ page.category }}">{% case page.category %}{% when 'housing' %}住宅空間{% when 'office' %}辦公空間{% when 'business' %}公共或商業空間{% when 'exterior' %}外牆拉皮{% when 'law' %}室內裝修相關法規{% endcase %}</span>
+        </div>
+
+        <!-- 文字與圖片混排：content裡面已包含圖片 -->
+        <div class="blog-single-body">
+          {{ content }}
+        </div>
+
+        <!-- gallery圖片：2欄並排顯示 -->
+        {% if page.gallery %}
+        <div class="blog-single-gallery">
+          {% assign first = true %}
+          {% for img in page.gallery %}
+            {% if first %}
+              {% assign first = false %}
+              <div class="gallery-full">
+                <img src="{{ img.image }}" alt="{{ page.title }}">
+              </div>
+            {% else %}
+              <img src="{{ img.image }}" alt="{{ page.title }}">
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <a href="{{ '/blog/' | relative_url }}" class="btn-back">← 返回設計講堂</a>
+      </article>
+
+      <!-- 右側：側欄 -->
+      <aside class="blog-sidebar">
+        <div class="sidebar-block">
+          <h4 class="sidebar-title">文章分類</h4>
+          <ul class="sidebar-cat-list">
+            {% assign hc = site.blog | where: "category", "housing" | size %}
+            {% assign oc = site.blog | where: "category", "office" | size %}
+            {% assign bc = site.blog | where: "category", "business" | size %}
+            {% assign ec = site.blog | where: "category", "exterior" | size %}
+            {% assign lc = site.blog | where: "category", "law" | size %}
+            <li {% if page.category == 'housing' %}class="active"{% endif %}><a href="{{ '/blog/' | relative_url }}">住宅空間 ({{ hc }})</a></li>
+            <li {% if page.category == 'office' %}class="active"{% endif %}><a href="{{ '/blog/' | relative_url }}">辦公空間 ({{ oc }})</a></li>
+            <li {% if page.category == 'business' %}class="active"{% endif %}><a href="{{ '/blog/' | relative_url }}">公共或商業空間 ({{ bc }})</a></li>
+            <li {% if page.category == 'exterior' %}class="active"{% endif %}><a href="{{ '/blog/' | relative_url }}">外牆拉皮 ({{ ec }})</a></li>
+            <li {% if page.category == 'law' %}class="active"{% endif %}><a href="{{ '/blog/' | relative_url }}">室內裝修相關法規 ({{ lc }})</a></li>
+          </ul>
+        </div>
+
+        <!-- 熱門文章：固定指定6篇 -->
+        <div class="sidebar-block">
+          <h4 class="sidebar-title">熱門文章</h4>
+          <ul class="sidebar-popular">
+            {% assign popular_slugs = "2021-08-29-soul-nature,2019-10-11-luxury-home,2021-11-23-home,2018-07-17-office-gym,2021-10-26-light-gift,2020-06-13-huiyu-review" | split: "," %}
+            {% for slug in popular_slugs %}
+              {% for post in site.blog %}
+                {% if post.path contains slug %}
+                <li>
+                  <a href="{{ post.url | relative_url }}">
+                    <img src="{{ post.cover }}" alt="{{ post.title }}">
+                    <div>
+                      <span class="pop-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+                      <span class="pop-title">{{ post.title }}</span>
+                    </div>
+                  </a>
+                </li>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>

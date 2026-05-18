@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <title>{% if page.title %}{{ page.title }}-{% endif %}大宏廷 W設計 -台中西區七期室內設計推薦</title>
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    #header {
+      background: rgba(255,255,255,0.80) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border-bottom: 1px solid rgba(200,200,200,0.35) !important;
+      box-shadow: none !important;
+    }
+    .main-nav ul li a {
+      font-family: "Cormorant Garamond", Georgia, serif !important;
+      font-style: italic !important;
+      font-weight: 700 !important;
+      font-size: 18px !important;
+      color: #2c2c2c !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+    }
+    .main-nav ul li a:hover { color: #b8975a !important; }
+  </style>
+</head>
+<body>
+
+{% include header.html %}
+
+{{ content }}
+
+{% include footer.html %}
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "{{ '/admin/' | relative_url }}";
+        });
+      }
+    });
+  }
+</script>
+<script src="{{ '/assets/main.js' | relative_url }}"></script>
+</body>
+</html>
